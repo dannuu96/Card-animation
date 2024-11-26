@@ -1,11 +1,28 @@
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import cheetah from './images/cheetah.jpeg';
 import mandril from './images/mandril.jpg';
 import whiteTiger from './images/white-tiger.jpg';
 
 function App() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsVisible(scrollPosition < 100); // Hide header after scrolling 100px
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
+      <h1 className={`header ${!isVisible ? 'fade-out' : ''}`}>WILD ANIMALS CARD</h1>
+
       <div className="card">
         <div className="card-inner">
           <div className="card-front">
